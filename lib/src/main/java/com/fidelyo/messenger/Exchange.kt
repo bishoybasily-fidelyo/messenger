@@ -1,38 +1,33 @@
 package com.fidelyo.messenger
 
-import com.google.gson.Gson
-import io.reactivex.Observable
-import java.io.Serializable
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Created by bishoy on 7/21/17.
  */
-class Exchange
-constructor(val gson: Gson) {
+open class Exchange {
 
-    val TAG = javaClass.simpleName
+    val map = ConcurrentHashMap<Long, Subscriber<*>>()
 
-    val subscribersMap = hashMapOf<Long, Subscriber>()
-
-    fun register(subscriber: Subscriber) {
+    fun register(subscriber: Subscriber<*>) {
         val nanoTime = System.currentTimeMillis()
-        subscribersMap.put(nanoTime, subscriber.apply { id = nanoTime })
+        map.put(nanoTime, subscriber.apply { id = nanoTime })
     }
 
-    fun publish(message: Serializable, routingKey: String) {
-        selectSubscribers(subscribersMap.values, routingKey).subscribe { subscriber ->
-            subscriber.handler.post { subscriber.callback?.onMessage(gson.toJsonTree(message)) }
-        }
+    fun publish(message: Any,
+                pubKey: String) {
+        map.values
+                .filter { shouldIPublish(it.key, pubKey) }
+                .forEach { it.initializeThenPublish(message) }
     }
 
-    fun unregister(subscriber: Subscriber) {
-        subscribersMap.remove(subscriber.id)
+    fun unregister(subscriber: Subscriber<*>) {
+        map.remove(subscriber.id)
     }
 
-    private fun selectSubscribers(subscribers: Collection<Subscriber>, key: String): Observable<Subscriber> {
-        return Observable.fromIterable(subscribers).filter { subscriber ->
-            subscriber.key.equals(key)
-        }
+    open fun shouldIPublish(subKey: String,
+                            pubKey: String): Boolean {
+        return subKey.equals(pubKey)
     }
 
 }

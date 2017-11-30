@@ -1,23 +1,25 @@
-package com.fidelyo.sample
+# Local messaging for android
 
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.support.v7.app.AppCompatActivity
-import android.util.Log
+[![](https://jitpack.io/v/bishoybasily-fidelyo/messenger.svg)](https://jitpack.io/#bishoybasily-fidelyo/messenger)
+
+## Overview
+
+This library is about basic implementation for the rabbit-mq topic exchange,
+the exchange you can filter it's messages by routing key.
+
+## Eample android kotlin
+
+**Full example**
+``` kotlin
 import com.fidelyo.messenger.Exchange
 import com.fidelyo.messenger.Subscriber
 
-class MainActivity : AppCompatActivity() {
-
-    val TAG = javaClass.simpleName
+ //...
 
     val exchange = Exchange()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+    
+ //...
+ 
         val subscriber1 = Subscriber<String>("routing_key2", Handler(Looper.myLooper()))
         subscriber1.callback = object : Subscriber.Callback<String> {
 
@@ -39,5 +41,9 @@ class MainActivity : AppCompatActivity() {
         exchange.register(subscriber2)
 
         exchange.publish("Hello", "routing_key2")
-    }
-}
+        
+ // ...
+ 
+```
+
+Moreover, you can extend the exchange and override "shouldIPublish" method to write your own routing decision
