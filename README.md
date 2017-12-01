@@ -7,7 +7,7 @@
 This library is about basic implementation for the rabbit-mq topic exchange,
 the exchange you can filter it's messages by routing key.
 
-## Eample android kotlin
+## Example android kotlin
 
 **Full example**
 ``` kotlin
