@@ -5,17 +5,22 @@ import android.os.Handler
 /**
  * Created by bishoy on 7/21/17.
  */
-class Subscriber<T>(var key: String, var handler: Handler) {
+class Subscriber<T>(internal var key: String,
+                    internal var handler: Handler) {
 
-    var id: Long? = null
-    var callback: Callback<T>? = null
+    internal var id: Long? = null
+    private var callback: Callback<T>? = null
 
-    fun initializeThenPublish(obj: Any) {
-        callback?.onMessage(obj as T)
+    fun handle(handler: (T) -> Unit) {
+        callback = object : Callback<T> {
+            override fun onMessage(t: T) {
+                handler(t)
+            }
+        }
     }
 
-    interface Callback<T> {
-        fun onMessage(t: T)
+    internal fun publish(obj: Any) {
+        handler.post { callback?.onMessage(obj as T) }
     }
 
 }

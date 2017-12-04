@@ -18,7 +18,7 @@ open class Exchange {
                 pubKey: String) {
         map.values
                 .filter { shouldIPublish(it.key, pubKey) }
-                .forEach { it.initializeThenPublish(message) }
+                .forEach { it.publish(message) }
     }
 
     fun unregister(subscriber: Subscriber<*>) {

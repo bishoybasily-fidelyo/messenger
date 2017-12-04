@@ -20,24 +20,12 @@ import com.fidelyo.messenger.Subscriber
     
  //...
  
-        val subscriber1 = Subscriber<String>("routing_key2", Handler(Looper.myLooper()))
-        subscriber1.callback = object : Subscriber.Callback<String> {
-
-            override fun onMessage(message: String) {
-                Log.i(TAG, message + " 1")
-            }
-
-        }
+        val subscriber1 = Subscriber<String>("routing_key1", Handler(Looper.myLooper()))
+        subscriber1.handle { Log.i(TAG, it + " 1") }
         exchange.register(subscriber1)
-
+        
         val subscriber2 = Subscriber<String>("routing_key2", Handler(Looper.myLooper()))
-        subscriber2.callback = object : Subscriber.Callback<String> {
-
-            override fun onMessage(message: String) {
-                Log.i(TAG, message + " 2")
-            }
-
-        }
+        subscriber2.handle { Log.i(TAG, it + " 2") }
         exchange.register(subscriber2)
 
         exchange.publish("Hello", "routing_key2")
