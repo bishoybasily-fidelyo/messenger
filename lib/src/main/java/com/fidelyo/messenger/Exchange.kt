@@ -14,19 +14,15 @@ open class Exchange {
         map.put(nanoTime, subscriber.apply { id = nanoTime })
     }
 
-    fun publish(message: Any,
-                pubKey: String) {
-        map.values
-                .filter { shouldIPublish(it.key, pubKey) }
-                .forEach { it.publish(message) }
+    fun publish(message: Any, pubKey: String) {
+        map.values.filter { shouldIPublish(it.key, pubKey) }.forEach { it.publish(message) }
     }
 
     fun unregister(subscriber: Subscriber<*>) {
         map.remove(subscriber.id)
     }
 
-    open fun shouldIPublish(subKey: String,
-                            pubKey: String): Boolean {
+    open fun shouldIPublish(subKey: String, pubKey: String): Boolean {
         return subKey.equals(pubKey)
     }
 
