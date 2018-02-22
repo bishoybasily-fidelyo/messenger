@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Matcher extends HashSet<Subscriber> {
 
-    public Set<Subscriber> publish(String phrase) {
+    public Set<Subscriber> matches(String phrase) {
 
         Set<Subscriber> results = new HashSet<>();
 
