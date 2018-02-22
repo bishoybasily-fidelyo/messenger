@@ -18,9 +18,11 @@ public class Matcher extends HashSet<Subscriber> {
         while (iterator.hasNext()) {
             Subscriber subscriber = iterator.next();
 
-            String[] matchableSegments = segmentsOf(subscriber.getKey());
+            String key = subscriber.getKey();
 
-            if (areEquals(phraseSegments, matchableSegments))
+            String[] subscriberSegments = segmentsOf(key);
+
+            if (areEquals(phraseSegments, subscriberSegments))
                 results.add(subscriber);
 
         }
@@ -35,9 +37,9 @@ public class Matcher extends HashSet<Subscriber> {
     private boolean areEquals(String[] left, String[] right) {
 
         int maximumLength = maximumLength(left, right);
-
         left = cleanUp(left, maximumLength);
         right = cleanUp(right, maximumLength);
+
 
         for (int i = 0; i < left.length; i++)
             if (!areEquals(left[i], right[i]))
@@ -78,10 +80,5 @@ public class Matcher extends HashSet<Subscriber> {
         }
         return result;
     }
-
-    private boolean isPotential(String[] segments) {
-        return segments[0].equals("#") || segments[segments.length - 1].equals("#");
-    }
-
 
 }
