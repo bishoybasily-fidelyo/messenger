@@ -5,10 +5,11 @@ import android.os.Handler
 /**
  * Created by bishoy on 7/21/17.
  */
-class Subscriber<T>(internal var key: String,
-                    internal var handler: Handler) {
+class SubscriberOld<T>(val key: String,
+                       val handler: Handler) {
 
-    internal var id: Long? = null
+    val id: Long by lazy { System.currentTimeMillis() }
+
     private var callback: Callback<T>? = null
 
     fun handle(handler: (T) -> Unit) {
@@ -19,9 +20,10 @@ class Subscriber<T>(internal var key: String,
         }
     }
 
-    internal fun publish(obj: Any) {
+    fun publish(obj: Any) {
         handler.post { callback?.onMessage(obj as T) }
     }
+
 
 }
 

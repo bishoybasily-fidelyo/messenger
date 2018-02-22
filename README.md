@@ -11,8 +11,8 @@ the exchange you can filter it's messages by routing key.
 
 **Full example**
 ``` kotlin
-import com.fidelyo.messenger.Exchange
-import com.fidelyo.messenger.Subscriber
+import com.fidelyo.messenger.ExchangeOld
+import com.fidelyo.messenger.SubscriberOld
 
  //...
 
