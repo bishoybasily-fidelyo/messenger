@@ -32,5 +32,3 @@ exchange.publish("Hello", "user.123.add")
 // ...
  
 ```
-
-Moreover, you can extend the exchange and override "shouldIPublish" method to write your own routing decision
