@@ -18,11 +18,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val subscriber1 = Subscriber<String>("user.*.*", Handler(Looper.myLooper()))
+        val subscriber1 = Subscriber<String>("user.#", Handler(Looper.myLooper()))
         subscriber1.handle { Log.i(TAG, it + " 1") }
         exchange.register(subscriber1)
 
-        val subscriber2 = Subscriber<String>("user.123.#", Handler(Looper.myLooper()))
+        val subscriber2 = Subscriber<String>("user.*.add", Handler(Looper.myLooper()))
         subscriber2.handle { Log.i(TAG, it + " 2") }
         exchange.register(subscriber2)
 

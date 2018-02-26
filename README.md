@@ -11,26 +11,25 @@ the exchange you can filter it's messages by routing key.
 
 **Full example**
 ``` kotlin
-import com.fidelyo.messenger.ExchangeOld
-import com.fidelyo.messenger.SubscriberOld
+import com.fidelyo.messenger.Exchange
+import com.fidelyo.messenger.Subscriber
+//...
 
- //...
-
-    val exchange = Exchange()
+val exchange = Exchange()
     
- //...
+//...
  
-        val subscriber1 = Subscriber<String>("routing_key1", Handler(Looper.myLooper()))
-        subscriber1.handle { Log.i(TAG, it + " 1") }
-        exchange.register(subscriber1)
-        
-        val subscriber2 = Subscriber<String>("routing_key2", Handler(Looper.myLooper()))
-        subscriber2.handle { Log.i(TAG, it + " 2") }
-        exchange.register(subscriber2)
+val subscriber1 = Subscriber<String>("user.#", Handler(Looper.myLooper()))
+subscriber1.handle { Log.i(TAG, it + " 1") }
+exchange.register(subscriber1)
 
-        exchange.publish("Hello", "routing_key2")
+val subscriber2 = Subscriber<String>("user.*.add", Handler(Looper.myLooper()))
+subscriber2.handle { Log.i(TAG, it + " 2") }
+exchange.register(subscriber2)
+
+exchange.publish("Hello", "user.123.add")
         
- // ...
+// ...
  
 ```
 

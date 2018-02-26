@@ -40,7 +40,6 @@ public class Matcher extends HashSet<Subscriber> {
         left = cleanUp(left, maximumLength);
         right = cleanUp(right, maximumLength);
 
-
         for (int i = 0; i < left.length; i++)
             if (!areEquals(left[i], right[i]))
                 return false;
