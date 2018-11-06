@@ -1,4 +1,4 @@
-package com.fidelyo.messenger
+package com.gmail.bishoybasily.messenger
 
 import android.os.Handler
 import java.util.*

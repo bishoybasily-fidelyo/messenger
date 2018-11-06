@@ -1,4 +1,4 @@
-package com.fidelyo.messenger;
+package com.gmail.bishoybasily.messenger;
 
 import java.util.ArrayList;
 import java.util.Arrays;

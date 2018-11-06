@@ -1,4 +1,4 @@
-package com.fidelyo.messenger
+package com.gmail.bishoybasily.messenger
 
 /**
  * Created by bishoy on 2/22/18.

@@ -1,6 +1,6 @@
 # Local messaging for android
 
-[![](https://jitpack.io/v/bishoybasily-fidelyo/messenger.svg)](https://jitpack.io/#bishoybasily-fidelyo/messenger)
+[![](https://jitpack.io/v/bishoybasily/messenger.svg)](https://jitpack.io/#bishoybasily/messenger)
 
 ## Overview
 
@@ -11,8 +11,8 @@ the exchange you can filter it's messages by routing key.
 
 **Full example**
 ``` kotlin
-import com.fidelyo.messenger.Exchange
-import com.fidelyo.messenger.Subscriber
+import com.gmail.bishoybasily.messenger.Exchange
+import com.gmail.bishoybasily.messenger.Subscriber
 //...
 
 val exchange = Exchange()
